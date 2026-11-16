@@ -32,6 +32,9 @@ jobs:
           enable-cache: false
 
       - name: Test
+        env:
+          # xlwings.server imports xlwings.pro, which needs a license key
+          XLWINGS_LICENSE_KEY: ${{ vars.XLWINGS_LICENSE_KEY }}
         run: uv run --python 3.14 pytest
 
       - name: Build

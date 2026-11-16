@@ -37,6 +37,9 @@ jobs:
           uvx ruff format --check .
 
       - name: Test
+        env:
+          # xlwings.server imports xlwings.pro, which needs a license key
+          XLWINGS_LICENSE_KEY: ${{ vars.XLWINGS_LICENSE_KEY }}
         run: uv run pytest
 
       - name: Build
