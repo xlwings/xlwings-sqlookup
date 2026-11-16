@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.14"]
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # hatch-vcs reads the version from the git tag
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Lint
+        run: |
+          uvx ruff check .
+          uvx ruff format --check .
+
+      - name: Test
+        env:
+          # xlwings.server imports xlwings.pro, which needs a license key
+          XLWINGS_LICENSE_KEY: ${{ vars.XLWINGS_LICENSE_KEY }}
+        run: uv run pytest
+
+      - name: Build
+        run: uv build
+
+  lockfile:
+    name: Verify actions.lock
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install gh-actions-lock
+        run: gh extension install github/gh-actions-lock --pin v0.4.1
+
+      # Fails if a workflow uses an action that isn't locked in .github/workflows/actions.lock
+      - name: Verify
+        run: gh actions-lock --verify
