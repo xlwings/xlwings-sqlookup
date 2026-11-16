@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "xlwings-sqlookup"
+version = "0.1.0"
+description = "SQLOOKUP custom function for xlwings Lite: query Excel ranges with SQL"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.md"]
+authors = [{ name = "Zoomer Analytics GmbH" }]
+requires-python = ">=3.11"
+dependencies = [
+    # xlwings.ext.sql with parameterized inserts, TEXT affinity, and quoted identifiers
+    "xlwings>=0.37.9",
+    # Pyodide before 314 ships sqlite3 as a separate package, later versions have it built in
+    'sqlite3; sys_platform == "emscripten" and python_version < "3.14"',
+]
+
+[project.entry-points.xlwings_lite]
+sqlookup = "xlwings_sqlookup.functions"
+
+[dependency-groups]
+dev = ["pytest"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.uv]
+# Only lock for desktop Python: uv resolves for all platforms by default and would look
+# for the Pyodide-only sqlite3 package on PyPI, where it doesn't exist
+environments = ["sys_platform != 'emscripten'"]
