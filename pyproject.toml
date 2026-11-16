@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "xlwings-sqlookup"
-version = "0.1.0"
+dynamic = ["version"]
 description = "SQLOOKUP custom function for xlwings Lite: query Excel ranges with SQL"
 readme = "README.md"
 license = "MIT"
@@ -18,8 +18,20 @@ dependencies = [
     'sqlite3; sys_platform == "emscripten" and python_version < "3.14"',
 ]
 
+[project.urls]
+Homepage = "https://github.com/xlwings/xlwings-sqlookup"
+Source = "https://github.com/xlwings/xlwings-sqlookup"
+Issues = "https://github.com/xlwings/xlwings-sqlookup/issues"
+
 [project.entry-points.xlwings_lite]
 sqlookup = "xlwings_sqlookup.functions"
+
+[tool.hatch.version]
+# The version comes from the git tag, e.g., 0.1.0
+source = "vcs"
+
+[tool.hatch.version.raw-options]
+local_scheme = "node-and-date"
 
 [dependency-groups]
 dev = ["pytest"]
