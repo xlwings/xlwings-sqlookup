@@ -12,8 +12,8 @@ license-files = ["LICENSE.md"]
 authors = [{ name = "Zoomer Analytics GmbH" }]
 requires-python = ">=3.11"
 dependencies = [
-    # xlwings.ext.sql with parameterized inserts, TEXT affinity, and quoted identifiers
-    "xlwings>=0.37.9",
+    # xlwings.ext.sql with datetime() comparisons and mixed text and number columns
+    "xlwings>=0.37.10",
     # Pyodide before 314 ships sqlite3 as a separate package, later versions have it built in
     'sqlite3; sys_platform == "emscripten" and python_version < "3.14"',
 ]

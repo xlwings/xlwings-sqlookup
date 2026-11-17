@@ -79,8 +79,8 @@ Excel passes dates to custom functions as numbers (date serials, e.g., `45306` f
 - The names must match the column names exactly, but case doesn't matter: `"order_date"` matches `Order_Date`, but `"date"` doesn't match `order_date`.
 - The conversion applies to the matching columns of all ranges.
 - Empty cells stay empty. Cells with text or `TRUE`/`FALSE` are left as they are.
-- Within the query, dates are text in ISO format, e.g., `2024-01-15T00:00:00`. Comparisons such as `order_date >= '2024-02-01'` work, but since `2024-01-31T00:00:00` sorts after `2024-01-31`, `order_date <= '2024-01-31'` and `BETWEEN '2024-01-01' AND '2024-01-31'` leave out the last day. For an end date, use `order_date < '2024-02-01'` or `date(order_date) <= '2024-01-31'`, and to match a single day, use `date(order_date) = '2024-01-15'`. See also SQLite's [date and time functions](https://www.sqlite.org/lang_datefunc.html).
-- In the result, the date columns are written back to Excel as dates. Values that SQL functions compute from dates, such as `date(order_date)`, are text.
+- Within the query, dates are text in ISO format, e.g., `2024-01-15 00:00:00`, the same format as SQLite's `datetime()`. Comparisons such as `order_date >= '2024-02-01'` work, but since `2024-01-31 00:00:00` sorts after `2024-01-31`, `order_date <= '2024-01-31'` and `BETWEEN '2024-01-01' AND '2024-01-31'` leave out the last day. For an end date, use `order_date < '2024-02-01'` or `date(order_date) <= '2024-01-31'`, and to match a single day, use `date(order_date) = '2024-01-15'`. See also SQLite's [date and time functions](https://www.sqlite.org/lang_datefunc.html).
+- In the result, the date columns are written back to Excel as dates, unless they also contain text, in which case their dates are returned as text. Values that SQL functions compute from dates, such as `date(order_date)`, are text.
 
 Since the last argument is a list of date columns whenever it's a single cell with text, an alias always needs a range after it.
 
