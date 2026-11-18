@@ -1,5 +1,7 @@
 # xlwings-sqlookup
 
+![SQLOOKUP screenshot](https://raw.githubusercontent.com/xlwings/xlwings-sqlookup/main/sqlookup-screenshot.png)
+
 An xlwings Lite plugin that adds the `SQLOOKUP` custom function: query your Excel ranges and tables with SQL, right in a cell.
 
 ```text
