@@ -1,8 +1,8 @@
 # xlwings-sqlookup
 
-![SQLOOKUP screenshot](https://raw.githubusercontent.com/xlwings/xlwings-sqlookup/main/sqlookup-screenshot.png)
+xlwings-sqlookup is an xlwings Lite plugin that adds the `SQLOOKUP` custom function: query your Excel ranges and tables with SQL, right in a cell.
 
-An xlwings Lite plugin that adds the `SQLOOKUP` custom function: query your Excel ranges and tables with SQL, right in a cell.
+![SQLOOKUP screenshot](https://raw.githubusercontent.com/xlwings/xlwings-sqlookup/main/sqlookup-screenshot.png)
 
 ```text
 =SQLOOKUP("SELECT name, SUM(amount) AS total FROM a JOIN b ON a.id = b.customer_id GROUP BY name", Customers[#All], Orders[#All])
