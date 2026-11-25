@@ -22,6 +22,10 @@ The SQL engine is [SQLite](https://www.sqlite.org/lang_select.html), running in 
 
 The `SQLOOKUP` function is now available in every cell of this workbook. You don't need to write any Python code. Since plugins are activated per workbook, repeat these steps for each workbook that should use `SQLOOKUP`.
 
+## App Mode
+
+In App Mode, the plugin shows a SQLookup page with an overview of the function and a button that inserts a new sheet with sample tables and `SQLOOKUP` formulas. If the workbook has its own App Mode view or uses other plugins with a page, select **SQLookup** under **Switch app**.
+
 ## Usage
 
 ```text
