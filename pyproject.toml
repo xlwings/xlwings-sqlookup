@@ -25,6 +25,7 @@ Issues = "https://github.com/xlwings/xlwings-sqlookup/issues"
 
 [project.entry-points.xlwings_lite]
 sqlookup = "xlwings_sqlookup.functions"
+scripts = "xlwings_sqlookup.scripts"
 
 [tool.hatch.version]
 # The version comes from the git tag, e.g., 0.1.0

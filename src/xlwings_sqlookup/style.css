@@ -1,0 +1,15 @@
+.sqlookup-page .sqlookup-title {
+  font-size: 1.5rem;
+}
+
+.sqlookup-page .sqlookup-heading {
+  font-size: 1.125rem;
+  margin-top: 1.5rem;
+}
+
+.sqlookup-page .sqlookup-code {
+  background-color: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  padding: 0.5rem 0.75rem;
+}

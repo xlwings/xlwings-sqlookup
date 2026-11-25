@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+  <head>
+    <title>SQLookup</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="sqlookup-page">
+      <h1 class="sqlookup-title">SQLookup</h1>
+      <p>
+        The <code>SQLOOKUP</code> function queries the ranges and tables in your workbook with SQL. The SQL engine is
+        SQLite, running locally in xlwings Lite: your data never leaves Excel.
+      </p>
+
+      <p>
+        To see <code>SQLOOKUP</code> in action, insert a new sheet with a few examples. Expand the formula bar vertically
+        to see the full formulas.
+      </p>
+      <button id="sqlookup-insert" class="btn btn-primary btn-sm" type="button">Insert examples into a new sheet</button>
+      <p id="sqlookup-error" class="text-danger mt-2 mb-0" hidden></p>
+
+      <h2 class="sqlookup-heading">Syntax</h2>
+      <pre class="sqlookup-code"><code>=SQLOOKUP(
+  query,
+  [alias a], table a,
+  [alias b], table b,
+  ...
+  [parse_dates]
+)</code></pre>
+      <ul>
+        <li><code>query</code>: the SQL query as text, e.g., <code>"SELECT * FROM orders"</code>, or a reference to a cell that contains it.</li>
+        <li>
+          <code>alias</code> (optional): the table name for the range in the next argument, similar to how
+          <code>LET</code> works. Without an alias, the first range is called <code>a</code>, the second one
+          <code>b</code>, etc.
+        </li>
+        <li>
+          <code>table</code>: a range or Excel table, e.g., <code>A1:C20</code> or <code>Table1[#All]</code>. The first
+          row must contain the column names.
+        </li>
+        <li>
+          <code>parse_dates</code> (optional): the date columns as comma-separated text, e.g.,
+          <code>"order_date, ship_date"</code>. The names must match the column names exactly, but case doesn't matter.
+        </li>
+      </ul>
+      <p>The result spills into the neighboring cells, with the column names in the first row. The simplest example is:</p>
+      <pre class="sqlookup-code"><code>=SQLOOKUP("SELECT * FROM a", A1:B10)</code></pre>
+
+      <h2 class="sqlookup-heading">Tips</h2>
+      <ul>
+        <li>Empty cells are <code>NULL</code> and vice versa.</li>
+        <li>
+          Put column names that contain spaces in square brackets: <code>"SELECT [order id] FROM a"</code>.
+        </li>
+        <li>
+          Dates are ISO text within the query, e.g., <code>2024-01-15 00:00:00</code>. Compare them with
+          <code>datetime()</code> or <code>date()</code>, e.g., <code>WHERE date(order_date) = '2024-01-15'</code>.
+        </li>
+      </ul>
+      <p>
+        For more, see the
+        <a href="https://github.com/xlwings/xlwings-sqlookup" target="_blank" rel="noopener">documentation</a>.
+      </p>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
